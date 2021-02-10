@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block body %}
+<p>장르별 추천영화</p>
+{% for movie in movies %}
+{{movie.genre}}
+{% endfor %}

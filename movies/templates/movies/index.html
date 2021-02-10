@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'index/index.css' %}">
+<link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<style>
+body{
+  background: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+</style>
+{% endblock %}
+{% block body %}
+
+<div class="container" style="text-align:center">
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button id="nowplaying" onclick="location.href=`{% url 'movies:index' 0%}`" type="button"
+      class="btn btn-secondary">현재 상영작</button>
+    <button id="popular" onclick="location.href=`{% url 'movies:index' 1%}`" type="button" class="btn btn-secondary">인기
+      영화</button>
+    <button id="top_rated" onclick="location.href=`{% url 'movies:index' 2%}`" type="button"
+      class="btn btn-secondary">평론가 평점순</button>
+  </div>
+  <hr>
+  <h1 style="font-family: 'Black Han Sans', sans-serif; color:#e0f088;">TOP 10 만 뽑았다!! </h1>
+</div>
+
+<div id="drag-container" style="z-index: 2;">
+  <div id="spin-container">
+    <!-- Add your images (or video) here -->
+    {% for movie in movies %}
+    <a href="{% url 'movies:detail' movie.pk %}"><img src="{{movie.poster_url}}" alt="sample84" />
+      {% endfor %}
+      <a href="#"></a>
+  </div>
+  <div id="ground"></div>
+</div>
+</div>
+
+{% block script %}
+{% comment %} <script>
+  const nowPlaying = document.querySelector('#nowplaying')
+  const movies = document.querySelector('#spin-container')
+  nowPlaying.addEventListener('click', function (event) {
+    console.log(event.target)
+  })
+  movies.addEventListner('click', function (event) {
+    console.log(event)
+  })
+</script> {% endcomment %}
+<script src="{% static 'index/index.js' %}"></script>
+<script>
+  src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"
+</script>
+{% endblock %}
+{% endblock %}

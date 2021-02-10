@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'login.css' %}">
+<link rel="stylesheet" href="{% static 'signup.css' %}">
+{% endblock %}
+{% load bootstrap4 %}
+{% load socialaccount %}
+{% block body %}
+<div class="row justify-content-md-center" style="margin-top:200px">
+  <div class="col col-lg-2">
+  </div>
+  <div class="login" style="width: 300px; height: 500px">
+    <form action="" method="post">
+      {% csrf_token %}
+      {% for field in login_form %}
+        <div class="form-group">
+          {{ field.label_tag }}
+          {{ field }}
+          {% if field.errors %}
+            {% for error in field.errors %}
+            <span class="help-block">{{ error }}</span>
+            {% endfor %}
+          {% endif %}
+        </div>
+      {% endfor %}
+  
+      {% if login_form.non_field_errors %}
+        {% for error in login_form.non_field_errors %}
+        <p class="text-danger"><b>{{ error }}</b></p>
+        {% endfor %}
+      {% endif %}
+      <button class="btn btn-primary btn-block" style='height:50px'>로그인</button>
+    </form>
+    <div class="wrap_btn" style="margin-top:20px">
+      <button class="btn_g btn_confirm submit" type="button" tabindex="3"  onclick="location.href=`{% provider_login_url 'kakao' %}` ">카카오로그인</button>
+    </div>
+    
+  </div>
+  <div class="col col-lg-2">
+  </div>
+</div>
+<link href='https://fonts.googleapis.com/css?family=Exo:400,900' rel='stylesheet' type='text/css'>
+<div class="wrapper">
+    <div class="message">
+        <p>Copyright SSAFY All rights reserved</p>
+    </div>
+</div>
+
+{% endblock %}
